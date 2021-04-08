@@ -15,7 +15,7 @@ workflows:
         requires:
         - terraform/validate
     - terraform/apply:
-        attach-workspace: false
+        attach-workspace: true
         context: terraform
         filters:
           branches:
