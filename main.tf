@@ -8,16 +8,16 @@ terraform {
       version = "~> 3.0"
     }
   }
-  backend "s3" {
-    bucket = "terraform-ar"
-    key    = "platform.tfstate"
-    region = "eu-west-1"
-  }
+#   backend "s3" {
+#     bucket = "terraform-ar"
+#     key    = "platform.tfstate"
+#     region = "eu-west-1"
+#   }
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
 resource "aws_instance" "ubuntu" {
-  ami           = ""
-  instance_type = "t3.micro"
-  subnet_id     = ""
+  ami           = "ami-08bac620dc84221eb"
+  instance_type = "t2.micro"
+  subnet_id     = aws_subnet.my_subnet_1a.id
 }
