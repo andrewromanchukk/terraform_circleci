@@ -12,7 +12,7 @@ terraform {
   backend "s3"{
     bucket = "test-circleci-state"
     key = "dev/test/terraform.tfstate"
-    region = "eu-west-1"
+    region = "eu-central-1"
   }
 }
 }
