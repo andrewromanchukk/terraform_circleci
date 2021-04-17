@@ -9,7 +9,8 @@ jobs:
       - run:
           command:|
           terraform taint aws_instance.ubuntu
-          terraform apply
+      - run:
+          command:terraform apply
 workflows:
   single-job-lifecycle:
     jobs:
