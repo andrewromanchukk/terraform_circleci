@@ -1,23 +1,20 @@
 version: 2
 jobs:
-  terraform_taint:
+  terraform_apply:
     working_directory: ~/tmp
     docker:
             - image: hashicorp/terraform:light
-            - image: ubuntu:16.04
 
     steps:
       - checkout
       - run:
-          name: terraform taint 
+          name: terraform apply
           command: |
             terraform taint aws_instance.ubuntu
-            terraform apply
-    
+            terraform apply 
 
 workflows:
   version: 2
   terraform:
     jobs:
-      - terraform_taint
-      
+      - terraform_apply
