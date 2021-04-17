@@ -8,6 +8,8 @@ jobs:
     steps:
       - checkout
       - run:
+          command:terraform init
+      - run:
           command:|
           terraform taint aws_instance.ubuntu
       - run:
