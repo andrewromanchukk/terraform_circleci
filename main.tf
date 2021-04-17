@@ -24,3 +24,4 @@ resource "aws_instance" "ubuntu" {
   lifecycle {
     create_before_destroy = true
 }
+}
