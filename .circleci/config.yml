@@ -15,7 +15,10 @@ jobs:
 workflows:
   single-job-lifecycle:
     jobs:
-      - terraform/init
+      - terraform/validate
+      - terraform/init:
+          requires: 
+            - terraform/validate
       - single-job-lifecycle:
           requires: 
             - terraform/init
