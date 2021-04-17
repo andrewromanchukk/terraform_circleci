@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: terraform taint
+          name: terraform taint aws_instance.ubuntu
           command: |
             terraform taint
     
