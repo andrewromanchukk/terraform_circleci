@@ -1,31 +1,20 @@
-version: '2.1'
-orbs:
-  terraform: circleci/terraform@2.0.1
+version: 2
+jobs:
+  terraform_apply:
+    working_directory: ~/tmp
+    docker:
+            - image: hashicorp/terraform:light
+
+    steps:
+      - checkout
+      - run:
+          name: terraform apply
+          command: |
+            terraform taint aws_instance.ubuntu
+            terraform apply 
+
 workflows:
-  deploy_infra:
+  version: 2
+  terraform:
     jobs:
-    - terraform/validate:
-        checkout: true
-        context: terraform
-    - terraform/plan:
-        checkout: true
-        context: terraform
-        persist-workspace: true
-        requires:
-        - terraform/validate
-    - terraform/apply:
-        attach-workspace: true
-        context: terraform
-        filters:
-          branches:
-            only: master
-        requires:
-        - terraform/plan
-    - terraform/destroy:
-        attach-workspace: true
-        context: terraform
-        filters:
-          branches:
-            only: master
-        requires:
-        - terraform/apply
+      - terraform_apply
