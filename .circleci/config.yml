@@ -5,13 +5,9 @@ jobs:
   single-job-lifecycle:
     executor: terraform/default
     steps:
-      - checkout
-      - terraform/init:
-          path: .
-      - terraform/apply:
-          path: .
       - run:
-          command:| terraform taint
+          command: |
+           terraform taint
     working_directory: .
 workflows:
   single-job-lifecycle:
