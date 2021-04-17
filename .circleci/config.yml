@@ -1,4 +1,3 @@
-
 version: '2.1'
 orbs:
   terraform: circleci/terraform@2.0.1
@@ -7,20 +6,22 @@ jobs:
     executor: terraform/default
     steps:
       - checkout
+      - terraform/init:
+          path: .
+      - terraform/validate:
+          path: .
+      - terraform/fmt:
+          path: .
+      - terraform/plan:
+          path: .
+      - terraform/apply:
+          path: .
       - run:
-          command:|
-          terraform taint aws_instance.ubuntu
-      - run:
-          command:|terraform apply
+          command:| terraform taint
+    working_directory: .
 workflows:
   single-job-lifecycle:
     jobs:
-      - terraform/validate
-      - terraform/init:
-          requires: 
-            - terraform/validate
-      - single-job-lifecycle:
-          requires: 
-            - terraform/init
+      - single-job-lifecycle
           
 
