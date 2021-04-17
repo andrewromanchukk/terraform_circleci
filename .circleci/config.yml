@@ -17,9 +17,6 @@ workflows:
     jobs:
       - terraform/init
       - single-job-lifecycle:
-        filters:
-          branches: 
-            only:master
           requires: 
             - terraform/init
           
