@@ -7,11 +7,10 @@ jobs:
     steps:
       - run:
           command: |
-           terraform taint
+           terraform taint aws_instance.ubuntu
     working_directory: .
 workflows:
   single-job-lifecycle:
     jobs:
       - single-job-lifecycle
           
-
