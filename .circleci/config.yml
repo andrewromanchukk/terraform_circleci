@@ -1,31 +1,18 @@
+
 version: '2.1'
 orbs:
   terraform: circleci/terraform@2.0.1
+jobs:
+  single-job-lifecycle:
+    executor: terraform/default
+    steps:
+      - checkout
+      - run:
+          command:|
+          terraform taint aws_instance.ubuntu
+      - run:
+          command:terraform apply
 workflows:
-  deploy_infra:
+  single-job-lifecycle:
     jobs:
-    - terraform/validate:
-        checkout: true
-        context: terraform
-    - terraform/plan:
-        checkout: true
-        context: terraform
-        persist-workspace: true
-        requires:
-        - terraform/validate
-    - terraform/apply:
-        attach-workspace: true
-        context: terraform
-        filters:
-          branches:
-            only: master
-        requires:
-        - terraform/plan
-    - terraform/destroy:
-        attach-workspace: true
-        context: terraform
-        filters:
-          branches:
-            only: master
-        requires:
-        - terraform/apply
+      - single-job-lifecycle
