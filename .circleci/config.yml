@@ -9,9 +9,10 @@ jobs:
     steps:
       - checkout
       - run:
-          name: terraform taint aws_instance.ubuntu
+          name: terraform taint 
           command: |
-            terraform taint
+            terraform taint aws_instance.ubuntu
+            terraform apply
     
 
 workflows:
