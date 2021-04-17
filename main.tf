@@ -8,11 +8,13 @@ terraform {
       version = "~> 3.0"
     }
   }
-#   backend "s3" {
-#     bucket = "terraform-ar"
-#     key    = "platform.tfstate"
-#     region = "eu-west-1"
-#   }
+terraform {
+  backend "s3"{
+    bucket = "test-circleci-state"
+    key = "dev/test/terraform.tfstate"
+    region = "eu-west-1"
+  }
+}
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
