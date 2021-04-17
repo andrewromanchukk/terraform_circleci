@@ -20,4 +20,7 @@ resource "aws_instance" "ubuntu" {
   ami           = "ami-0767046d1677be5a0"
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.my_subnet_1a.id
+
+  lifecycle {
+    create_before_destroy = true
 }
