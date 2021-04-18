@@ -1,23 +1,23 @@
-version: '2.1'
-orbs:
-  terraform: circleci/terraform@2.0.1
+version: 2
+
+jobs:
+  plan-apply:
+    working_directory: /tmp/project
+    docker:
+      - image: docker.mirror.hashicorp.services/hashicorp/terraform:light
+    steps:
+      - checkout
+      - run:
+          name: terraform init & plan
+          command: |
+            terraform init -input=false
+            terraform plan -out tfapply -var-file variables.tfvars
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 workflows:
-  deploy_infra:
+  version: 2
+  running:
     jobs:
-    - terraform/validate:
-        checkout: true
-        context: terraform
-    - terraform/plan:
-        checkout: true
-        context: terraform
-        persist-workspace: true
-        requires:
-        - terraform/validate
-    - terraform/destroy:
-        attach-workspace: true
-        context: terraform
-        filters:
-          branches:
-            only: master
-        requires:
-        - terraform/plan
+      - plan-apply
