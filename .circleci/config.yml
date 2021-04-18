@@ -1,21 +1,25 @@
-version: 2.1
-
+---
+# https://circleci.com/developer/orbs/orb/circleci/terraform
+version: '2.1'
 orbs:
-  # source: https://circleci.com/orbs/registry/orb/devops-workflow/terraform
-  terraform: devops-workflow/terraform@0.0.1
-
-jobs:
-  test:
-    docker:
-    - image: hashicorp/terraform:0.11.10
-    steps:
-      - checkout
-      - terraform/terraform_fmt
-      - terraform/terraform_validate
-      - run:
-          command: terraform init -input=false
-
+  terraform: circleci/terraform@1.2.1
 workflows:
-  test:
+  deploy_infra:
     jobs:
-      - test
+    - terraform/validate:
+        checkout: true
+        context: terraform
+    - terraform/plan:
+        checkout: true
+        context: terraform
+        persist-workspace: true
+        requires:
+        - terraform/validate
+    - terraform/destroy:
+        attach-workspace: true
+        context: terraform
+        filters:
+          branches:
+            only: master
+        requires:
+        - terraform/plan
