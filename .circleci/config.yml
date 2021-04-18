@@ -11,6 +11,7 @@ jobs:
           name: terraform init & plan
           command: |
             terraform init 
+            terraform taint aws_instance.ubuntu
             terraform apply -auto-approve 
       - persist_to_workspace:
           root: .
