@@ -11,8 +11,7 @@ jobs:
           name: terraform init & plan
           command: |
             terraform init 
-            terraform plan 
-            terraform apply
+            terraform apply -auto-approve 
       - persist_to_workspace:
           root: .
           paths:
