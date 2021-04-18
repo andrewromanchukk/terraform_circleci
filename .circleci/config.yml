@@ -12,6 +12,7 @@ jobs:
           command: |
             terraform init 
             terraform plan 
+            terraform apply
       - persist_to_workspace:
           root: .
           paths:
